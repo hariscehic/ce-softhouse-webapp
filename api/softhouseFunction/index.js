@@ -1,13 +1,37 @@
+const mongoClient = require("mongodb").MongoClient;
+const db = require('../db/index');
+
+
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
+    let response = null;
+    await db.init();
 
-    const name = (req.query.name || (req.body && req.body.name));
-    const responseMessage = name
-        ? "Hello, " + name + ". This HTTP triggered function executed successfully."
-        : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
+    switch(req.method) {
+        case 'GET':
+            response = await db.getContent();
+            break;
+        case 'POST':
+            response = await db.addContent(req.body);   
+            break;
+        default:
+            response = await db.getContent();
+            break;
+    }
 
     context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: responseMessage
-    };
+            // status: 200, /* Defaults to 200 */
+            body: response
+        };
+
+
+    // const name = (req.query.name || (req.body && req.body.name));
+    // const responseMessage = name
+    //     ? "Hello, " + name + ". This HTTP triggered function executed successfully."
+    //     : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
+    
+    // context.res = {
+    //     // status: 200, /* Defaults to 200 */
+    //     body: responseMessage
+    // };
 }
