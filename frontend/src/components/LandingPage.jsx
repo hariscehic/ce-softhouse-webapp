@@ -6,10 +6,13 @@ const LandingPage = () => {
 
   useEffect(() => {
     (async () => {
-      const result = await getContent();
-      console.log(result);
-      setContents(result?.data);
-    
+      try {
+        const result = await getContent();
+        console.log(result);
+        setContents(result?.data);
+      } catch (e) {
+        console.log("error", e);
+      }
     })();
   }, []);
 
