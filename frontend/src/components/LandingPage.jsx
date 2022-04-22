@@ -1,17 +1,26 @@
 import { useEffect, useState } from "react";
-import { getContent } from "../../services";
-
+import { getContent } from "../services";
 
 const LandingPage = () => {
-    const [content, setContent] = useState([]);
+  const [contents, setContents] = useState([]);
 
-    useEffect(() => {
-        (async () => {
-            const result = await getContent();
-            console.log(result);
-            setContent(result?.data);
-        })
-    }, [])
+  useEffect(() => {
+    async () => {
+      const result = await getContent();
+      console.log(result);
+      setContents(result?.data);
+    };
+  }, []);
+
+  return (
+    <div>
+      {contents?.map((content) => (
+        <div>
+          <h3>{content.body}</h3>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default LandingPage;
