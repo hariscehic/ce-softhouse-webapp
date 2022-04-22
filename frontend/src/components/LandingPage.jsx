@@ -5,11 +5,12 @@ const LandingPage = () => {
   const [contents, setContents] = useState([]);
 
   useEffect(() => {
-    async () => {
+    (async () => {
       const result = await getContent();
       console.log(result);
       setContents(result?.data);
-    };
+    
+    })();
   }, []);
 
   return (
