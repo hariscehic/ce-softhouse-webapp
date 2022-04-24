@@ -1,12 +1,15 @@
-import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import {Box, FormControl, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material";
 import {useState} from "react";
 import Button from "@mui/material/Button";
 import {addContent} from "../services";
+import {useNavigate} from "react-router-dom";
 
 const Dashboard = () => {
     const [type, setType] = useState("");
     const [header, setHeader] = useState("");
     const [body, setBody] = useState("");
+
+    const navigate = useNavigate();
 
     const resetAll = () => {
         setType("");
@@ -20,9 +23,7 @@ const Dashboard = () => {
             header,
             body
         });
-
-        console.log(result);
-        if(result?.status === 200) {
+        if (result?.status === 200) {
             resetAll();
         }
     }
@@ -49,8 +50,12 @@ const Dashboard = () => {
                 paddingLeft: '90px',
             }}>
                 <Box sx={{
-                    display: 'flex', flexDirection: 'column', gap: '20px'
+                    display: 'flex', flexDirection: 'column', gap: '20px', background: 'white'
                 }}>
+                    <Box>
+                        <Button onClick={() => navigate('/')}>Go to landing page</Button>
+                    </Box>
+                    <Typography variant="h3" sx={{paddingLeft: '8px'}}>Add content</Typography>
                     <FormControl sx={{m: 1, width: '150px'}}>
                         <InputLabel id="demo-simple-select-autowidth-label">Select type</InputLabel>
                         <Select
@@ -65,11 +70,15 @@ const Dashboard = () => {
                             <MenuItem value="offering">Offering</MenuItem>
                         </Select>
                     </FormControl>
-                    <TextField id="outlined-basic1" label="Title" variant="outlined" value={header}
-                               onChange={(e) => setHeader(e.target.value)}/>
-                    <TextField id="outlined-basic2" label="Content" variant="outlined" value={body}
-                               onChange={(e) => setBody(e.target.value)}/>
-                    <Box display="flex" justifyContent="flex-end"> <Button variant="contained"
+                    <Box sx={{paddingLeft: '8px'}}>
+                        <TextField id="outlined-basic1" label="Title" variant="outlined" value={header}
+                                   onChange={(e) => setHeader(e.target.value)}/>
+                    </Box>
+                    <Box sx={{paddingLeft: '8px'}}>
+                        <TextField id="outlined-basic2" label="Content" variant="outlined" value={body}
+                                   onChange={(e) => setBody(e.target.value)}/>
+                    </Box>
+                    <Box display="flex" justifyContent="flex-end" sx={{margin: 2}}> <Button variant="contained"
                                                                            onClick={handleSave}>Save</Button></Box>
                 </Box>
             </Box>

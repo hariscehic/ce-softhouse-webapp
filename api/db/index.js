@@ -31,8 +31,8 @@ const getContentyById = async (id) => {
     return await ContentModel.findById(id);
 };
 
-const getContent = async (query = {}) => {
-    return await ContentModel.find({});
+const getContent = async () => {
+    return await ContentModel.find();
 };
 
 const deleteContent = async (id) => {
