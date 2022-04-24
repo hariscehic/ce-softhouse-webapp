@@ -21,8 +21,8 @@ const init = async () => {
   }
 };
 const addContent = async (doc) => {
-  const modelToInsert = new ContentModel();
-  return await modelToInsert.save(doc);
+  const modelToInsert = new ContentModel(doc);
+  return await modelToInsert.save();
 };
 
 const getContentyById = async (id) => {
