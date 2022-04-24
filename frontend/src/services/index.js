@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://nice-sky-0a504c203.1.azurestaticapps.net/api/softhouseFunction';
+const BASE_URL = '/api/softhouseFunction';
 
 export const getContent = async () => await axios.get(BASE_URL);
 
